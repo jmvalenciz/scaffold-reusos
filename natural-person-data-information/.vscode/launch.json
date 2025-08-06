@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Hono App",
+            "program": "${workspaceFolder}/src/index.ts", // Adjust path to your main Hono file
+            "preLaunchTask": "npm: dev", // Optional: if you have a dev script to start Hono
+            "cwd": "${workspaceFolder}",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        }
+    ]
+}

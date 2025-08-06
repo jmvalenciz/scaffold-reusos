@@ -1,0 +1,25 @@
+{
+  "name": "natural-person-data-information",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts --inspect-brk",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.18.0",
+    "@hono/swagger-ui": "^0.5.2",
+    "@hono/zod-validator": "^0.7.2",
+    "dotenv": "^17.2.1",
+    "hono": "^4.8.10",
+    "hono-openapi": "^0.4.8",
+    "jose": "^6.0.12",
+    "zod": "^4.0.14",
+    "zod-openapi": "^5.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "tsx": "^4.7.1",
+    "typescript": "^5.8.3"
+  }
+}
