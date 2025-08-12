@@ -1,0 +1,11 @@
+{
+	"keys": [
+		{
+			"kty": "RSA",
+			"n": "kFPtdVOklzpKVlk5kyAMR6sUAo6zeW1VbxR_Mdw69Fg8B8_SagTxifBeWm5KUENxFtztTBsLasIhExVZWRnLHI1ep3McDnEqoa74qcEgAm5zXzQZwy0uFp7yEziH8VjhyVQFKROTU8AS6mZK0jFzx_EZNFj1l9-ounJySMYaerZLZDteT2n6QomFCzVSdppz32bNCXO5gP2_IVOuBFeaKw6-qSfNSIf1yTKXAqtLXBhDFufXeI_1RAXLEF4iw6s3jQ5oYTbyfgZ3MX8787Kqprx1vabPmk7rWz8RDK8WBcq8CG7CRC9tagTynG_oj6T0wG_vcvTk8ichWk0p5bvd4Q",
+			"e": "AQAB",
+			"alg": "RS256",
+			"kid": "reusos-scaffold-tutorial"
+		}
+	]
+}

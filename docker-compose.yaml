@@ -1,0 +1,69 @@
+services:
+  file-provider:
+    build: ./file-provider
+    container_name: file-provider
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./secret-files/:/opt/app/static/"
+
+  internal-transaction-management:
+    build:
+      context: internal-transaction-management
+      dockerfile: ./deployment/Dockerfile
+    container_name: internal-transaction-management
+    depends_on:
+      ibmmq:
+        condition: service_healthy
+    ports:
+      - "8081:8080"
+    environment:
+      MQ_HOST: "ibmmq(1414)"
+      MQ_USER: "app"
+      MQ_PASSWORD: "passw0rd"
+
+  natural-person-account-management:
+    build: ./natural-person-account-management
+    container_name: natural-person-account-management
+    depends_on:
+      - file-provider
+    ports:
+      - "3001:3000"
+    environment:
+      JWK_ISSUER: reusos-scaffold
+      JWK_SUBJECT: request-natural-person-account
+      JWKS_URL: "http://file-provider:3000/static/jwks.json"
+
+  natural-person-data-information:
+    build: ./natural-person-data-information
+    container_name: natural-person-data-information
+    depends_on:
+      - file-provider
+    ports:
+      - "3002:3000"
+    environment:
+      JWK_ISSUER: reusos-scaffold
+      JWK_SUBJECT: request-natural-person-data
+      JWKS_URL: "http://file-provider:3000/static/jwks.json"
+  
+  ibmmq:
+    image: icr.io/ibm-messaging/mq
+    platform: "linux/amd64"
+    container_name: ibm-mq
+    restart: unless-stopped
+    healthcheck:
+        test: ["CMD", "curl", "-k", "https://localhost:9443/ibmmq"]
+        interval: 5s
+        timeout: 10s
+        retries: 20
+    environment:
+      LICENSE: "accept"
+      MQ_QMGR_NAME: "QM1"
+      MQ_APP_USER: "app"
+      MQ_APP_PASSWORD: "passw0rd"
+      MQ_ADMIN_USER: "admin"
+      MQ_ADMIN_PASSWORD: "passw0rd"
+      MQ_DEV: "true"
+    ports:
+      - "1414:1414"
+      - "9443:9443"

@@ -4,6 +4,7 @@ import { serve } from '@hono/node-server'
 import { swaggerUI } from '@hono/swagger-ui';
 import { Hono } from 'hono'
 import { openAPISpecs } from 'hono-openapi'
+import { logger } from 'hono/logger'
 
 import naturalPersonRouter from "./routes/naturalPerson.js";
 import infraRouter from "./routes/infra.js";
@@ -12,6 +13,8 @@ import infraRouter from "./routes/infra.js";
 const PORT:number = parseInt(process.env.PORT || "3000");
 
 const app = new Hono()
+
+app.use(logger())
 
 app.get(
   '/openapi',

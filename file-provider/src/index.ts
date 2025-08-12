@@ -1,10 +1,15 @@
 import { serve } from '@hono/node-server'
 import { serveStatic } from '@hono/node-server/serve-static';
 import { Hono } from 'hono'
+import { logger } from 'hono/logger'
+
+const PORT = parseInt(process.env.PORT??"3000") 
 
 const app = new Hono()
 
-app.use('/static/*', serveStatic({ root: './' })); 
+app.use(logger())
+
+app.use('/static/*', serveStatic({ root: './' })); // reads files from ./static
 
 app.get('/health', (c) => {
   c.status(200);
@@ -13,7 +18,7 @@ app.get('/health', (c) => {
 
 serve({
   fetch: app.fetch,
-  port: 3001
+  port: PORT
 }, (info) => {
   console.log(`Server is running on http://localhost:${info.port}`)
 })
