@@ -16,6 +16,18 @@ class AccountController {
 
         return account;
     }
+
+    async updateAccountBalance(id: string, type: string, amount: number): Promise<Account>{
+        let account = await AccountDB.getAccount(id);
+        if(!account){
+            throw new BusinessException("Account not found", 404, "BE002");
+        }
+
+        if(account.type !== type){
+            throw new BusinessException("Account type mismatch", 400, "BE003");
+        }
+        return (await AccountDB.updateAccountBalance(id, amount))!;
+    }
 }
 
 export default new AccountController();

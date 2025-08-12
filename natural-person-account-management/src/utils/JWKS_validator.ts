@@ -1,4 +1,3 @@
-import fs      from 'fs'
 import type { Context, Next } from 'hono';
 import { jwtVerify, createRemoteJWKSet } from 'jose'
 
