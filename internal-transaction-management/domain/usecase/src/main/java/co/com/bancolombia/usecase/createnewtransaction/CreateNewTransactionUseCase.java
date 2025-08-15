@@ -8,7 +8,7 @@ import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
 public class CreateNewTransactionUseCase {
-    TransactionRepository transactionRepository;
+    private final TransactionRepository transactionRepository;
 
     public Mono<Transaction> newTransaction(NewTransaction newTransaction){
         return transactionRepository.createTransaction(newTransaction);

@@ -1,7 +1,7 @@
 [
   {
     "document": {
-      "number": 102345678,
+      "number": "102345678",
       "type": "TIPDOC_FS000"
     },
     "fullName": "Andrés Felipe Morales",
@@ -12,7 +12,7 @@
   },
   {
     "document": {
-      "number": 204680135,
+      "number": "204680135",
       "type": "TIPDOC_FS001"
     },
     "fullName": "María Camila Rodríguez",
@@ -24,7 +24,7 @@
   },
   {
     "document": {
-      "number": 312579024,
+      "number": "312579024",
       "type": "TIPDOC_FS002"
     },
     "fullName": "Juan Diego Gómez",
@@ -35,7 +35,7 @@
   },
   {
     "document": {
-      "number": 423158907,
+      "number": "423158907",
       "type": "TIPDOC_FS003"
     },
     "fullName": "Laura Isabel Torres",
@@ -46,7 +46,7 @@
   },
   {
     "document": {
-      "number": 536719284,
+      "number": "536719284",
       "type": "TIPDOC_FS004"
     },
     "fullName": "Sebastián Rafael Pérez",
@@ -57,7 +57,7 @@
   },
   {
     "document": {
-      "number": 642075319,
+      "number": "642075319",
       "type": "TIPDOC_FS005"
     },
     "fullName": "Sofía Valentina Castro",
@@ -68,7 +68,7 @@
   },
   {
     "document": {
-      "number": 754198630,
+      "number": "754198630",
       "type": "TIPDOC_FS006"
     },
     "fullName": "Carlos Eduardo Vargas",
@@ -79,7 +79,7 @@
   },
   {
     "document": {
-      "number": 865230714,
+      "number": "865230714",
       "type": "TIPDOC_FS007"
     },
     "fullName": "Natalia Paola Herrera",
@@ -90,7 +90,7 @@
   },
   {
     "document": {
-      "number": 971345602,
+      "number": "971345602",
       "type": "TIPDOC_FS008"
     },
     "fullName": "Diego Alejandro Ruiz",
@@ -101,7 +101,7 @@
   },
   {
     "document": {
-      "number": 108276543,
+      "number": "108276543",
       "type": "TIPDOC_FS009"
     },
     "fullName": "Valentina Milena Soto",

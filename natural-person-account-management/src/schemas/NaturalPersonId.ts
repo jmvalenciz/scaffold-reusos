@@ -14,7 +14,7 @@ var documentTypes = [
 ] as const;
 
 export var NaturalPersonIdValidator = z.object({
-    number: z.int32().min(0),
+    number: z.string(),
     type: z.enum(documentTypes)
 });
 

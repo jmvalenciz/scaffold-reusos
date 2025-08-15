@@ -4,36 +4,38 @@ import co.com.bancolombia.h2.model.TransactionEntity;
 import co.com.bancolombia.model.transaction.NewTransaction;
 import co.com.bancolombia.model.transaction.Transaction;
 import co.com.bancolombia.model.transaction.gateways.TransactionRepository;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Repository
 public class TransactionsDbAdapter implements TransactionRepository {
-    private final TransactionsH2Repository repository;
-
-    TransactionsDbAdapter(TransactionsH2Repository repository){
-        this.repository = repository;
-    }
+    private final List<Transaction> repository = new ArrayList<>();
 
     @Override
     public Flux<Transaction> getTransactionsByAccount(String accountId) {
-        return repository.findByOriginAccountOrDestinationAccount(accountId, accountId)
-                .map(this::entityToModel);
+        var transactions = repository.stream()
+                .filter(t -> t.getOrigin().equals(accountId)||t.getDestination().equals(accountId));
+        return Flux.fromStream(transactions);
     }
 
     @Override
     public Mono<Transaction> createTransaction(NewTransaction newTransaction) {
-        var entity = modelToEntity(newTransaction);
-        return repository.save(entity)
-                .map(this::entityToModel);
+        var transaction = Transaction.builder()
+                .id(UUID.randomUUID().toString())
+                .amount(newTransaction.getAmount())
+                .createdAt(LocalDateTime.now())
+                .origin(newTransaction.getOrigin())
+                .destination(newTransaction.getDestination())
+                .currency(newTransaction.getCurrency())
+                .build();
+        repository.add(transaction);
+        return Mono.just(transaction);
     }
 
     private Transaction entityToModel(TransactionEntity transaction){
@@ -49,7 +51,7 @@ public class TransactionsDbAdapter implements TransactionRepository {
 
     private TransactionEntity modelToEntity(NewTransaction transaction){
         return TransactionEntity.builder()
-                .id(UUID.randomUUID())
+                //.id(UUID.randomUUID())
                 .amount(transaction.getAmount())
                 .createdAt(LocalDateTime.now())
                 .originAccount(transaction.getOrigin())

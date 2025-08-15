@@ -67,3 +67,11 @@ services:
     ports:
       - "1414:1414"
       - "9443:9443"
+  redis:
+    image: redis:latest # Or a specific version like redis:7.0-alpine
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379" # Maps host port 6379 to container port 6379
+    environment:
+      REDIS_PASSWORD: your_secure_password

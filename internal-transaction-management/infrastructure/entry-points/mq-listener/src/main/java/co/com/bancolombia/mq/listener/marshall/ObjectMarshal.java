@@ -1,7 +1,5 @@
 package co.com.bancolombia.mq.listener.marshall;
 
-import co.com.bancolombia.model.transaction.NewTransaction;
-import co.com.bancolombia.mq.listener.model.NewTransactionDTO;
 import org.beanio.Marshaller;
 import org.beanio.StreamFactory;
 import org.beanio.Unmarshaller;

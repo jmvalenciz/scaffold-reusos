@@ -2,7 +2,6 @@ package co.com.bancolombia.mq.listener;
 
 import co.com.bancolombia.commons.jms.api.MQMessageSender;
 import co.com.bancolombia.commons.jms.mq.MQListener;
-import co.com.bancolombia.model.transaction.NewTransaction;
 import co.com.bancolombia.commons.jms.mq.EnableMQMessageSender;
 import co.com.bancolombia.mq.listener.model.NewTransactionDTO;
 import co.com.bancolombia.mq.listener.model.TransactionListDTO;
@@ -41,60 +40,44 @@ public class SampleMQMessageListener {
     @MQListener("${commons.jms.input-queue}")
     public void process(Message message) throws JMSException {
         timer.record(System.currentTimeMillis() - message.getJMSTimestamp(), TimeUnit.MILLISECONDS);
-        var operation = message.getStringProperty("operation");
         TextMessage textMessage = (TextMessage) message;
+        var operation = textMessage.getText().substring(0,15).trim();
+        var payload = textMessage.getText().substring(15);
         Mono<String> res = switch(operation){
-            case "getTransactions" -> handleGetTransactions(textMessage);
-            case "newTransaction" -> handleNewTransaction(textMessage);
-            default -> throw new IllegalStateException("Unexpected value: " + operation);
+            case "getTransactions" -> handleGetTransactions(textMessage, payload);
+            case "newTransaction" -> handleNewTransaction(textMessage, payload);
+            default -> throw new IllegalStateException("Unexpected value: " + payload);
         };
         res.subscribe();
     }
 
-    private Mono<String> handleNewTransaction(TextMessage message) throws JMSException {
-        var destination = message.getJMSDestination();
+    private Mono<String> handleNewTransaction(TextMessage message, String payload) throws JMSException {
+        var replyTo = message.getJMSReplyTo();
         var correlationId = message.getJMSMessageID();
-        NewTransactionDTO transactionMessage = stringToObject(message.getText(), NewTransactionDTO.class);
-        var newTransaction = NewTransaction.builder()
-                .consumerAcronym(transactionMessage.getConsumerAcronym())
-                .amount(transactionMessage.getAmount())
-                .currency(transactionMessage.getCurrency())
-                .destination(transactionMessage.getDestination())
-                .origin(transactionMessage.getOrigin())
-                .build();
+        NewTransactionDTO transactionMessage = stringToObject(payload, NewTransactionDTO.class);
+        var newTransaction = transactionMessage.toModel();
         return createNewTransactionUseCase.newTransaction(newTransaction)
                 .flatMap(transaction ->{
-                    var transactionDto = TransactionResponseDTO.builder()
-                            .id(transaction.getId())
-                            .createdAt(transaction.getCreatedAt())
-                            .destination(transaction.getDestination())
-                            .origin(transaction.getOrigin())
-                            .amount(transaction.getAmount())
-                            .currency(transaction.getCurrency())
-                            .build();
-                    return sendResponse(objectToString(transactionDto, TransactionResponseDTO.class), correlationId, destination);
+                    var transactionDto = TransactionResponseDTO.fromModel(transaction);
+                    return sendResponse(objectToString(transactionDto, TransactionResponseDTO.class), correlationId, replyTo);
                 });
     }
 
-    private Mono<String> handleGetTransactions(TextMessage message) throws JMSException {
-        var destination = message.getJMSDestination();
+    private Mono<String> handleGetTransactions(TextMessage message, String payload) throws JMSException {
+        var replyTo = message.getJMSReplyTo();
         var correlationId = message.getJMSMessageID();
-        return getTransactionsByAccountUseCase.getTransactions(message.getText())
+        return getTransactionsByAccountUseCase.getTransactions(payload.substring(0,36))
                 .collectList()
+                .delayElement(Duration.ofSeconds(5))
                 .flatMap(transactions -> {
                     TransactionListDTO transactionList = TransactionListDTO.builder()
-                            .transactions(transactions.stream().map(transaction->TransactionResponseDTO.builder()
-                                    .id(transaction.getId())
-                                    .createdAt(transaction.getCreatedAt())
-                                    .destination(transaction.getDestination())
-                                    .origin(transaction.getOrigin())
-                                    .amount(transaction.getAmount())
-                                    .currency(transaction.getCurrency())
-                                    .build()).toList())
+                            .transactions(transactions.stream().map(TransactionResponseDTO::fromModel).toList())
                             .build();
-                    return sendResponse(objectToString(transactionList, TransactionListDTO.class), correlationId, destination);
-                })
-                .delayElement(Duration.ofSeconds(1));
+                    var stringList = transactionList.getTransactions()
+                            .stream()
+                            .map(t -> objectToString(t, TransactionResponseDTO.class)).toList();
+                    return sendResponse(String.join("", stringList), correlationId, replyTo);
+                });
     }
 
     private Mono<String> sendResponse(String body, String correlationId, Destination destination){

@@ -1,5 +1,6 @@
 package co.com.bancolombia.mq.listener.model;
 
+import co.com.bancolombia.model.transaction.Transaction;
 import lombok.Builder;
 import lombok.Data;
 import org.beanio.annotation.Field;
@@ -11,18 +12,30 @@ import java.time.LocalDateTime;
 @Record(minOccurs = 0)
 @Builder
 public class TransactionResponseDTO {
-    @Field(at = 0, length = 1, rid = true, literal = "D")
+    @Field(length = 1, rid = true, literal = "D")
     private String recordType = "D";
-    @Field(at = 1, length = 36)
+    @Field(length = 36)
     String id;
-    @Field(at = 1, length = 36)
+    @Field(length = 36)
     String origin;
-    @Field(at = 1, length = 36)
+    @Field(length = 36)
     String destination;
-    @Field(at = 1, length = 3)
+    @Field(length = 3)
     String currency;
-    @Field(at = 1)
+    @Field(length = 26)
     LocalDateTime createdAt;
-    @Field(at = 1)
+    @Field(length = 12)
     long amount;
+
+    public static TransactionResponseDTO fromModel(Transaction transaction){
+        return TransactionResponseDTO.builder()
+                .id(transaction.getId())
+                .recordType("D")
+                .createdAt(transaction.getCreatedAt())
+                .destination(transaction.getDestination())
+                .origin(transaction.getOrigin())
+                .amount(transaction.getAmount())
+                .currency(transaction.getCurrency())
+                .build();
+    }
 }

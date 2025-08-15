@@ -1,5 +1,6 @@
 package co.com.bancolombia.mq.listener.model;
 
+import co.com.bancolombia.model.transaction.NewTransaction;
 import lombok.Data;
 import lombok.Getter;
 import org.beanio.annotation.Field;
@@ -20,4 +21,14 @@ public class NewTransactionDTO {
     String consumerAcronym;
     @Field(length = 12, padding = '0', align = Align.RIGHT)
     long amount;
+
+    public NewTransaction toModel(){
+        return NewTransaction.builder()
+                .consumerAcronym(consumerAcronym)
+                .amount(amount)
+                .currency(currency)
+                .destination(destination)
+                .origin(origin)
+                .build();
+    }
 }
