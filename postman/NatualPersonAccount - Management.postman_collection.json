@@ -1,0 +1,130 @@
+{
+	"info": {
+		"_postman_id": "a6877ef1-7bfa-48d9-a519-ceb4274fbe4c",
+		"name": "NatualPersonAccount - Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44764679"
+	},
+	"item": [
+		{
+			"name": "/health",
+			"request": {
+				"method": "HEAD",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/health",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/retreive-customer-account",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "message-id",
+						"value": "{{$guid}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJldXNvcy1zY2FmZm9sZC10dXRvcmlhbCJ9.eyJzdWIiOiJyZXF1ZXN0LW5hdHVyYWwtcGVyc29uLWFjY291bnQiLCJpc3MiOiJyZXVzb3Mtc2NhZmZvbGQiLCJpYXQiOjE3NTQ0NDA4MDExNjQsImV4cCI6MTc1NDQ0ODMxODU0M30.HRA-0U53IfZJqtPY81TvwOK13u9oQXz2qP2KOaANN1fr2puCxhfqWQPD8ZeAZfYZoKzDUJ8XKuJYdhdihxCOofjWdCM7ElJjpf_jI62floYhmuKZdREE66PqxeI_PX-EqVpz0V5flX44fkSgZhgmc7DFXiSTnfZCJPEbdJiSPp7lBJB9dHkYAM6c7F1WG-Ed9DbPjyBJv71fO2bjFe6cqdc8kIf1TrY8E3GxuZnfZvaNiSTBPPp662uYpyNw-Q8qWzf5a38FdVtO5k0Tu1DpLhZpzpomDjXxRt6sp2u4y6v6rFlriudrNt2Ob7nPRGNxiKOb-9_IziUnD9cI1gCYBA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"5d9f1a47-2b3d-4cbe-92c7-6f7bb7a3e4f0\",\n    \"type\": \"AHORROS\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/retreive-customer-account",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"retreive-customer-account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/update-customer-account-balance",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "message-id",
+						"value": "{{$guid}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJldXNvcy1zY2FmZm9sZC10dXRvcmlhbCJ9.eyJzdWIiOiJyZXF1ZXN0LW5hdHVyYWwtcGVyc29uLWFjY291bnQiLCJpc3MiOiJyZXVzb3Mtc2NhZmZvbGQiLCJpYXQiOjE3NTQ0NDA4MDExNjQsImV4cCI6MTc1NDQ0ODMxODU0M30.HRA-0U53IfZJqtPY81TvwOK13u9oQXz2qP2KOaANN1fr2puCxhfqWQPD8ZeAZfYZoKzDUJ8XKuJYdhdihxCOofjWdCM7ElJjpf_jI62floYhmuKZdREE66PqxeI_PX-EqVpz0V5flX44fkSgZhgmc7DFXiSTnfZCJPEbdJiSPp7lBJB9dHkYAM6c7F1WG-Ed9DbPjyBJv71fO2bjFe6cqdc8kIf1TrY8E3GxuZnfZvaNiSTBPPp662uYpyNw-Q8qWzf5a38FdVtO5k0Tu1DpLhZpzpomDjXxRt6sp2u4y6v6rFlriudrNt2Ob7nPRGNxiKOb-9_IziUnD9cI1gCYBA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"3f50e2c1-8d14-4a8f-9b76-1e5ab2cd8a12\",\n    \"type\": \"CORRIENTE\",\n    \"amount\": -12500\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/update-customer-account-balance",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"update-customer-account-balance"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3001",
+			"type": "string"
+		}
+	]
+}

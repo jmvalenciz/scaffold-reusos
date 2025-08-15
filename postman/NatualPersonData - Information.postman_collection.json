@@ -1,0 +1,93 @@
+{
+	"info": {
+		"_postman_id": "b1532035-e5ae-4d53-b7b0-6b036ede5c9f",
+		"name": "NatualPersonData - Information",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44764679"
+	},
+	"item": [
+		{
+			"name": "/health",
+			"request": {
+				"method": "HEAD",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/health",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/retreive-customer-data",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "message-id",
+						"value": "{{$guid}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InJldXNvcy1zY2FmZm9sZC10dXRvcmlhbCJ9.eyJzdWIiOiJyZXF1ZXN0LW5hdHVyYWwtcGVyc29uLWRhdGEiLCJpc3MiOiJyZXVzb3Mtc2NhZmZvbGQiLCJpYXQiOjE3NTQ0NDA4MDExNjQsImV4cCI6MTc1NDQ0ODMxODU0M30.cVfx1oN5nafk7DkwHSb4m-x8LKktLuvnpatFqnGIlXew7j32cJ9UQy6Kjz0JCzjkq_YXZMoaqZevAFgvLaVpNLdsI-BVPzXWXMtTzGjzqivEwnqN-9s8Uqk167o4chCAq1GAq4L6v8e1AOo4XNM_i9WaM_hHSaG0cnJ2vJdMWuVTl3k81fw2kxOojwubOjuk6G_d-59E6bISHKCu0WV0EYBEQYZW2hkEf63YjchaDiiY8BZIx9u0Cy-W_ajNl_PpTs4qzoRGsG9y72vcB9yxRC_llLdeJGx8Dgo5sCdM1hPm51tIkyQLQmY4ehlk0tC2UGghZ5SPFQ9TU1adhtrlLg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"number\": 102345678,\n    \"type\": \"TIPDOC_FS000\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/retreive-customer-data",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"retreive-customer-data"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}

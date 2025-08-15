@@ -1,0 +1,295 @@
+{
+	"info": {
+		"_postman_id": "04577d9d-a494-45c2-a1dd-bc5f48a6b048",
+		"name": "InternalTransactions - Management",
+		"description": "Example New Transaction body:\n\n```\nc8d4f0b7-9c9e-4e8b-8c9d-3b6a4d7f4871\nc8d4f0b7-9c9e-4e8b-8c9d-3b6a4d7f4872\nCOP\nSVP\n000,012,450,273\n\n ```",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44764679"
+	},
+	"item": [
+		{
+			"name": "getTransactions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"messageId\", pm.response.headers.get(\"ibm-mq-md-messageId\"));",
+							"//pm.execution.setNextRequest(\"getTransactions-replyTo\");"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "passw0rd",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "app",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "ibm-mq-rest-csrf-token",
+						"value": "{{$guid}}",
+						"type": "text"
+					},
+					{
+						"key": "ibm-mq-usr",
+						"value": "operation;\"getTransactions\";string",
+						"type": "text"
+					},
+					{
+						"key": "ibm-mq-md-replyTo",
+						"value": "{{REPLY_TO}}@{{QMANAGER}}",
+						"type": "text"
+					},
+					{
+						"key": "ibm-mq-md-messageId",
+						"value": "ID:21b0a730d3bbb2966e367c50312b5dbcac8462361559fae2",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "3f50e2c1-8d14-4a8f-9b76-1e5ab2cd8a12",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:9443/ibmmq/rest/v3/messaging/qmgr/{{QMANAGER}}/queue/{{QUEUE_NAME}}/message",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "9443",
+					"path": [
+						"ibmmq",
+						"rest",
+						"v3",
+						"messaging",
+						"qmgr",
+						"{{QMANAGER}}",
+						"queue",
+						"{{QUEUE_NAME}}",
+						"message"
+					],
+					"query": [
+						{
+							"key": "replyQ",
+							"value": "{{REPLY_TO}}",
+							"disabled": true
+						},
+						{
+							"key": "wait",
+							"value": "10000",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "newTransaction",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "passw0rd",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "app",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "ibm-mq-rest-csrf-token",
+						"value": "{{$guid}}",
+						"type": "text"
+					},
+					{
+						"key": "ibm-mq-usr",
+						"value": "operation;\"newTransaction\";string",
+						"type": "text"
+					},
+					{
+						"key": "ibm-mq-md-replyTo",
+						"value": "{{REPLY_TO}}@{{QMANAGER}}",
+						"type": "text"
+					},
+					{
+						"key": "ibm-mq-md-messageId",
+						"value": "ID:21b0a730d3bbb2966e367c50312b5dbcac8462361559fae2",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "c8d4f0b7-9c9e-4e8b-8c9d-3b6a4d7f4871c8d4f0b7-9c9e-4e8b-8c9d-3b6a4d7f4872COPSVP000012450273",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:9443/ibmmq/rest/v3/messaging/qmgr/{{QMANAGER}}/queue/{{QUEUE_NAME}}/message",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "9443",
+					"path": [
+						"ibmmq",
+						"rest",
+						"v3",
+						"messaging",
+						"qmgr",
+						"{{QMANAGER}}",
+						"queue",
+						"{{QUEUE_NAME}}",
+						"message"
+					],
+					"query": [
+						{
+							"key": "replyQ",
+							"value": "{{REPLY_TO}}",
+							"disabled": true
+						},
+						{
+							"key": "wait",
+							"value": "10000",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTransactions-replyTo",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YXBwOnBhc3N3MHJk"
+					},
+					{
+						"key": "ibm-mq-rest-csrf-token",
+						"value": "20c3f9fd-..."
+					}
+				],
+				"url": {
+					"raw": "https://localhost:9443/ibmmq/rest/v3/messaging/qmgr/QM1/queue/DEV.QUEUE.1/message?messageId={{messageId}}&correlationId={{messageId}}",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "9443",
+					"path": [
+						"ibmmq",
+						"rest",
+						"v3",
+						"messaging",
+						"qmgr",
+						"QM1",
+						"queue",
+						"DEV.QUEUE.1",
+						"message"
+					],
+					"query": [
+						{
+							"key": "messageId",
+							"value": "{{messageId}}"
+						},
+						{
+							"key": "correlationId",
+							"value": "{{messageId}}"
+						}
+					]
+				},
+				"description": "Generated from cURL: curl -ks -X GET \\\n \"https://localhost:9443/ibmmq/rest/v3/messaging/qmgr/QM1/queue/DEV.QUEUE.1/message?correlationId=ID:414d5120...&wait=30000\" \\\n -H \"Authorization: Basic YXBwOnBhc3N3MHJk\" \\\n -H \"ibm-mq-rest-csrf-token: 20c3f9fd-...\"\n"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "QUEUE_NAME",
+			"value": "DEV.QUEUE.2",
+			"type": "string"
+		},
+		{
+			"key": "QMANAGER",
+			"value": "QM1",
+			"type": "string"
+		},
+		{
+			"key": "REPLY_TO",
+			"value": "DEV.QUEUE.1",
+			"type": "string"
+		},
+		{
+			"key": "messageId",
+			"value": ""
+		}
+	]
+}

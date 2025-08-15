@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "6a378fed-949f-4596-8a94-9a0d676f51d7",
+		"name": "NaturalPersonTransactionPayments",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44764679"
+	},
+	"item": [
+		{
+			"name": "/health",
+			"request": {
+				"method": "HEAD",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/health",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/create-transaction",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJuYXR1cmFsLXBlcnNvbi1wYXltZW50IiwiaXNzIjoicmV1c29zLXNjYWZmb2xkIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.FG1fSd6hM95-n-_BVfihVyLUTodUdmULlge6Q5RRiwVRh9DaJWzPN8EKGXPN0Cz7ACfcX76fQUbDIaL2cPeWGglq6oyJKo3YLPc09rMQLc9JYOM00lZjCMBLq7Gc8WyQ7NrCAm120vlw9ZIkKCHLKmuTmEmSCCCFCLaSppKsWsAsuT1XoTCOV3izYFt_f1lCfBCaiFvn92LAVJRk5SoI4XuIFmUdkEp3t9DwCGv0FYIGIR8-zYxmpv-WHU_XfvCO-2ODZXolb7oy1MdUwRTO8oq8JQWksT_4yR26m6nChcaXXtH0XDfO-oIx7RfLQS2j_sy7JkaWX7m4lzyAs8aD6g",
+						"type": "text"
+					},
+					{
+						"key": "consumer-acronym",
+						"value": "SVP",
+						"type": "text"
+					},
+					{
+						"key": "message-id",
+						"value": "{{$guid}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"origin\": {\n        \"account_id\": \"3f50e2c1-8d14-4a8f-9b76-1e5ab2cd8a12\",\n        \"account_type\": \"CORRIENTE\"\n    },\n    \"destination\": {\n        \"account_id\": \"5d9f1a47-2b3d-4cbe-92c7-6f7bb7a3e4f0\",\n        \"account_type\": \"AHORROS\"\n    },\n    \"amount\":1000,\n    \"currency\": \"COP\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/create-transaction",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"create-transaction"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/transactions",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJuYXR1cmFsLXBlcnNvbi1wYXltZW50IiwiaXNzIjoicmV1c29zLXNjYWZmb2xkIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.FG1fSd6hM95-n-_BVfihVyLUTodUdmULlge6Q5RRiwVRh9DaJWzPN8EKGXPN0Cz7ACfcX76fQUbDIaL2cPeWGglq6oyJKo3YLPc09rMQLc9JYOM00lZjCMBLq7Gc8WyQ7NrCAm120vlw9ZIkKCHLKmuTmEmSCCCFCLaSppKsWsAsuT1XoTCOV3izYFt_f1lCfBCaiFvn92LAVJRk5SoI4XuIFmUdkEp3t9DwCGv0FYIGIR8-zYxmpv-WHU_XfvCO-2ODZXolb7oy1MdUwRTO8oq8JQWksT_4yR26m6nChcaXXtH0XDfO-oIx7RfLQS2j_sy7JkaWX7m4lzyAs8aD6g",
+						"type": "text"
+					},
+					{
+						"key": "message-id",
+						"value": "{{$guid}}",
+						"type": "text"
+					},
+					{
+						"key": "consumer-acronym",
+						"value": "SVP",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"account-id\": \"3f50e2c1-8d14-4a8f-9b76-1e5ab2cd8a12\",\n    \"account-type\": \"CORRIENTE\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/transactions",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
